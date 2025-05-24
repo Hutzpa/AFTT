@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "AFTT.Storefront\\AFTT.Storefront.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "AFTT.Core\\AFTT.Core.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

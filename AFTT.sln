@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36121.58 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AFTT.Storefront", "AFTT.Storefront\AFTT.Storefront.csproj", "{0BB62600-404B-4F30-B85D-20F9F8025A9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AFTT.Core", "AFTT.Core\AFTT.Core.csproj", "{ADFD5CBF-44AD-4BCD-8129-33D3CA5A5D0D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0BB62600-404B-4F30-B85D-20F9F8025A9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BB62600-404B-4F30-B85D-20F9F8025A9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BB62600-404B-4F30-B85D-20F9F8025A9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BB62600-404B-4F30-B85D-20F9F8025A9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADFD5CBF-44AD-4BCD-8129-33D3CA5A5D0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADFD5CBF-44AD-4BCD-8129-33D3CA5A5D0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADFD5CBF-44AD-4BCD-8129-33D3CA5A5D0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADFD5CBF-44AD-4BCD-8129-33D3CA5A5D0D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D908CFFE-C2E4-4578-9688-FB9850D9793E}
+	EndGlobalSection
+EndGlobal
