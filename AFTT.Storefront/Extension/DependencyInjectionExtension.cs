@@ -12,10 +12,10 @@ internal static class DependencyInjectionExtension
         {
             bus.UsingRabbitMq((context, cfg) =>
             {
-                cfg.Host(builder.Configuration["RabbitMQ:Host"], h =>
+                cfg.Host("localhost", "/", h =>
                 {
-                    h.Username(builder.Configuration["RabbitMQ:Username"]);
-                    h.Password(builder.Configuration["RabbitMQ:Password"]);
+                    h.Username("guest");
+                    h.Password("guest");
                 });
             });
 

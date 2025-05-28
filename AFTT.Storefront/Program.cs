@@ -11,7 +11,6 @@ builder.Services.AddScoped<IMissionsService, MissionsService>();
 
 builder.Services.AddAutoMapper(typeof(MissionsMappingProfile).Assembly);
 
-
 // Add services to the container.
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
@@ -20,7 +19,6 @@ builder.Services.AddControllers();
 
 builder.AddRabbitMq();
 
-//Mappings 
 //FluentValidation
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
