@@ -2,4 +2,5 @@
 
 public record GetUserMissionsBllRequest
 {
+    public Guid UserGuid { get; init; }
 }

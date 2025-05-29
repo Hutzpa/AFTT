@@ -4,6 +4,7 @@ using AFTT.Storefront.Extension;
 using AFTT.Storefront.Implementations;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Identity.Web;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,7 @@ WebApplication app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();//New Swagger
+    app.MapScalarApiReference();
 }
 
 app.UseHttpsRedirection();

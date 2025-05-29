@@ -12,11 +12,12 @@ internal static class DependencyInjectionExtension
         {
             bus.UsingRabbitMq((context, cfg) =>
             {
-                cfg.Host("localhost", "/", h =>
+                cfg.Host("localhost", 5672, "/", h =>
                 {
                     h.Username("guest");
                     h.Password("guest");
                 });
+
             });
 
             bus.AddRequestClient<GetUserMissionsBllRequest>(new Uri($"queue:{MissionsQueue.GetUserMissions}"), TimeSpan.FromSeconds(60));

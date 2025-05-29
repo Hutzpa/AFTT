@@ -6,13 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 namespace AFTT.Storefront.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-internal class MissionsController(IMissionsService missionsService) : ControllerBase
+[Route("api/[controller]")]
+public class MissionsController(IMissionsService missionsService) : ControllerBase
 {
     [HttpGet("get-all")]
-    public async Task<IActionResult> GetAllAsync([FromQuery] GetUserMissionsRequest request)
+    public async Task<IActionResult> GetAllAsync()
     {
-        GetUserMissionsResponse response = await missionsService.GetAllAsync(request);
+        GetUserMissionsResponse response = await missionsService.GetAllAsync(new GetUserMissionsRequest //mapped request
+        {
+            UserGuid = Guid.NewGuid()
+        });
 
         return Ok(response);
     }

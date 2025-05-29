@@ -3,7 +3,7 @@ using AFTT.Common.Models.Response.Missions;
 
 namespace AFTT.Storefront.Abstractions;
 
-internal interface IMissionsService
+public interface IMissionsService
 {
     Task<GetUserMissionsResponse> GetAllAsync(GetUserMissionsRequest request);
 }
