@@ -1,7 +1,5 @@
 using AFTT.Common.MappingProfiles;
-using AFTT.Core.Abstractions;
 using AFTT.Core.Extensions;
-using AFTT.Core.Implementations;
 using AFTT.EF;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,9 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services.AddScoped<IMissionsService, MissionsService>();
-
 builder.Services.AddAutoMapper(typeof(MissionsMappingProfile).Assembly);
+
+builder.AddDataProviders();
+
+builder.AddServices();
 
 builder.AddRabbitMq();
 

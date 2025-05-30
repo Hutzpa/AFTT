@@ -1,11 +1,25 @@
 ﻿using AFTT.Common.Bus;
+using AFTT.Common.DataProviders.Abstractions;
+using AFTT.Common.DataProviders.Implementations.Ef;
+using AFTT.Core.Abstractions;
 using AFTT.Core.Consumers;
+using AFTT.Core.Implementations;
 using MassTransit;
 
 namespace AFTT.Core.Extensions;
 
 internal static class DependencyInjectionExtensions
 {
+    internal static void AddDataProviders(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddScoped<IMissionsDataProvider, MissionsEfDataProvider>();
+    }
+
+    internal static void AddServices(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddScoped<IMissionsService, MissionsService>();
+    }
+
     internal static void AddRabbitMq(this WebApplicationBuilder builder)
     {
         builder.Services.AddMassTransit(bus =>

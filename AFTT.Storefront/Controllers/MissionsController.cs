@@ -12,7 +12,7 @@ public class MissionsController(IMissionsService missionsService) : ControllerBa
     [HttpGet("get-all")]
     public async Task<IActionResult> GetAllAsync()
     {
-        GetUserMissionsResponse response = await missionsService.GetAllAsync(new GetUserMissionsRequest //mapped request
+        GetUserMissionsResponse response = await missionsService.GetAllAsync(new GetUserMissionsRequest //mapped request    
         {
             UserGuid = Guid.NewGuid()
         });
