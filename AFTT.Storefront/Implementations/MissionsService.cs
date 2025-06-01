@@ -9,15 +9,49 @@ namespace AFTT.Storefront.Implementations;
 
 internal class MissionsService(
     IMapper mapper,
-    IRequestClient<GetUserMissionsBllRequest> getAllUserMissionsRequestClient
+    IRequestClient<ActiveMissionsGetBllRequest> getActiveUserMissionsRequestClient,
+    IRequestClient<FutureMissionsGetBllRequest> getFutureUserMissionsRequestClient,
+    IRequestClient<MissionCreateBllRequest> createMissionRequestClient,
+    IRequestClient<MissionUpdateBllRequest> updateMissionRequestClient
     ) : IMissionsService
 {
-    public async Task<GetUserMissionsResponse> GetAllAsync(GetUserMissionsRequest request)
+    public async Task<MissionsGetResponse> GetActiveAsync(ActiveMissionsGetRequest request)
     {
-        GetUserMissionsBllRequest bllRequest = mapper.Map<GetUserMissionsBllRequest>(request);
+        ActiveMissionsGetBllRequest bllRequest = mapper.Map<ActiveMissionsGetBllRequest>(request);
 
-        Response<GetUserMissionsResponse> response = await getAllUserMissionsRequestClient
-            .GetResponse<GetUserMissionsResponse>(bllRequest);
+        Response<MissionsGetResponse> response = await getActiveUserMissionsRequestClient
+            .GetResponse<MissionsGetResponse>(bllRequest);
+
+        return response.Message;
+    }
+
+    public async Task<MissionsGetResponse> GetFutureAsync(FutureMissionsGetRequest request)
+    {
+        // Similar mapping and request logic as GetActiveAsync
+        FutureMissionsGetBllRequest bllRequest = mapper.Map<FutureMissionsGetBllRequest>(request);
+
+        Response<MissionsGetResponse> response = await getFutureUserMissionsRequestClient
+            .GetResponse<MissionsGetResponse>(bllRequest);
+
+        return response.Message;
+    }
+
+    public async Task<MissionCreateResponse> CreateAsync(MissionCreateRequest request)
+    {
+        MissionCreateBllRequest bllRequest = mapper.Map<MissionCreateBllRequest>(request);
+
+        Response<MissionCreateResponse> response = await createMissionRequestClient
+            .GetResponse<MissionCreateResponse>(request);
+
+        return response.Message;
+    }
+
+    public async Task<MissionUpdateResponse> UpdateAsync(MissionUpdateRequest request)
+    {
+        MissionUpdateBllRequest bllRequest = mapper.Map<MissionUpdateBllRequest>(request);
+
+        Response<MissionUpdateResponse> response = await updateMissionRequestClient
+            .GetResponse<MissionUpdateResponse>(request);
 
         return response.Message;
     }

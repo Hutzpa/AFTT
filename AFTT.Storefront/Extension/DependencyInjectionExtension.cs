@@ -20,7 +20,10 @@ internal static class DependencyInjectionExtension
 
             });
 
-            bus.AddRequestClient<GetUserMissionsBllRequest>(new Uri($"queue:{MissionsQueue.GetUserMissions}"), TimeSpan.FromSeconds(60));
+            bus.AddRequestClient<ActiveMissionsGetBllRequest>(new Uri($"queue:{MissionsQueue.GetActiveMissions}"), TimeSpan.FromSeconds(60));
+            bus.AddRequestClient<FutureMissionsGetBllRequest>(new Uri($"queue:{MissionsQueue.GetFutureMissions}"), TimeSpan.FromSeconds(60));
+            bus.AddRequestClient<MissionCreateBllRequest>(new Uri($"queue:{MissionsQueue.CreateMission}"), TimeSpan.FromSeconds(60));
+            bus.AddRequestClient<MissionUpdateBllRequest>(new Uri($"queue:{MissionsQueue.UpdateMission}"), TimeSpan.FromSeconds(60));
         });
     }
 }

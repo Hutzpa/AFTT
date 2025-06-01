@@ -9,18 +9,71 @@ namespace AFTT.Storefront.Controllers;
 [Route("api/[controller]")]
 public class MissionsController(IMissionsService missionsService) : ControllerBase
 {
-    [HttpGet("get-all")]
-    public async Task<IActionResult> GetAllAsync()
+    //TODO: GET USER GUID FROM AUTHENTICATION CONTEXT INSTEAD OF QUERY PARAMETER
+    [HttpGet("get-active")]
+    [ProducesResponseType(typeof(MissionsGetResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetActiveAsync([FromQuery] Guid userGuid)
     {
-        GetUserMissionsResponse response = await missionsService.GetAllAsync(new GetUserMissionsRequest //mapped request    
+        MissionsGetResponse response = await missionsService.GetActiveAsync(new ActiveMissionsGetRequest
         {
-            UserGuid = Guid.NewGuid()
+            UserGuid = userGuid
         });
+
+        if (response.IsSuccess == false)
+        {
+            return BadRequest(response.Message);
+        }
 
         return Ok(response);
     }
-    //Get relevant user missions
-    //Add mission
-    //Add sidemission
-    //Update mission
+
+    //TODO: GET USER GUID FROM AUTHENTICATION CONTEXT INSTEAD OF QUERY PARAMETER
+    [HttpGet("get-future")]
+    [ProducesResponseType(typeof(MissionsGetResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetFutureAsync([FromQuery] Guid userGuid)
+    {
+        MissionsGetResponse response = await missionsService.GetFutureAsync(new FutureMissionsGetRequest
+        {
+            UserGuid = userGuid
+        });
+
+        if (response.IsSuccess == false)
+        {
+            return BadRequest(response.Message);
+        }
+
+        return Ok(response);
+    }
+
+    [HttpPost("create")]
+    [ProducesResponseType(typeof(MissionCreateResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> CreateAsync([FromBody] MissionCreateRequest request)
+    {
+        MissionCreateResponse response = await missionsService.CreateAsync(request);
+
+        if (response.IsSuccess == false)
+        {
+            return BadRequest(response.Message);
+        }
+
+        return Ok(response);
+    }
+
+    [HttpPut("update")]
+    [ProducesResponseType(typeof(MissionUpdateResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateAsync([FromBody] MissionUpdateRequest request)
+    {
+        MissionUpdateResponse response = await missionsService.UpdateAsync(request);
+
+        if (response.IsSuccess == false)
+        {
+            return BadRequest(response.Message);
+        }
+
+        return Ok(response);
+    }
 }

@@ -5,5 +5,8 @@ namespace AFTT.Storefront.Abstractions;
 
 public interface IMissionsService
 {
-    Task<GetUserMissionsResponse> GetAllAsync(GetUserMissionsRequest request);
+    Task<MissionsGetResponse> GetActiveAsync(ActiveMissionsGetRequest request);
+    Task<MissionsGetResponse> GetFutureAsync(FutureMissionsGetRequest request);
+    Task<MissionCreateResponse> CreateAsync(MissionCreateRequest request);
+    Task<MissionUpdateResponse> UpdateAsync(MissionUpdateRequest request);
 }

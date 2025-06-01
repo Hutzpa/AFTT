@@ -1,8 +1,10 @@
 ﻿using AFTT.Common.Bus;
 using AFTT.Common.DataProviders.Abstractions;
 using AFTT.Common.DataProviders.Implementations.Ef;
+using AFTT.Common.Models.Request.Bll.Missions;
 using AFTT.Core.Abstractions;
 using AFTT.Core.Consumers;
+using AFTT.Core.Consumers.Missions;
 using AFTT.Core.Implementations;
 using MassTransit;
 
@@ -24,7 +26,10 @@ internal static class DependencyInjectionExtensions
     {
         builder.Services.AddMassTransit(bus =>
         {
-            bus.AddConsumer<GetAllUserMissionsConsumer>().Endpoint(e => e.Name = MissionsQueue.GetUserMissions);
+            bus.AddConsumer<GetAllActiveUserMissionsConsumer>().Endpoint(e => e.Name = MissionsQueue.GetActiveMissions);
+            bus.AddConsumer<GetAllFutureUserMissionsConsumer>().Endpoint(e => e.Name = MissionsQueue.GetFutureMissions);
+            bus.AddConsumer<UpdateMissionConsumer>().Endpoint(e => e.Name = MissionsQueue.UpdateMission);
+            bus.AddConsumer<CreateMissionConsumer>().Endpoint(e => e.Name = MissionsQueue.CreateMission);
 
             bus.UsingRabbitMq((context, cfg) =>
             {
@@ -35,12 +40,6 @@ internal static class DependencyInjectionExtensions
                 });
 
                 cfg.ConfigureEndpoints(context);
-
-
-                bus.AddLogging(log =>
-                {
-                    log.AddConsole(); // Якщо потрібно, додай логгер
-                });
             });
         });
     }

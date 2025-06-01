@@ -6,4 +6,6 @@ public enum ResponseCode
     Fail = -1,
     BadRequest = 400,
     InternalServerError = 500,
+
+    MissionNotFound = 1001,
 }

@@ -9,4 +9,7 @@ public record UserDbEntity
     public Guid UserGuid { get; init; }
     public required string Username { get; init; }
     public ICollection<MissionDbEntity> Missions { get; init; } = new List<MissionDbEntity>();
+
+    public int SettingsId { get; init; }
+    public required UserSettings Settings { get; init; }
 }
