@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace AFTT.EF.Models;
-public record UserSettings
+public record UserSettingsDbEntity
 {
     [Key]
     public int Id { get; init; }

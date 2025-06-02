@@ -35,16 +35,20 @@ public class MissionsEfDataProvider(MissionContext missionContext) : IMissionsDa
             .FirstOrDefaultAsync(m => m.Id == id);
     }
 
-    public async Task CreateAsync(MissionDbEntity mission)
+    public async Task<MissionDbEntity> CreateAsync(MissionDbEntity mission)
     {
         await missionContext.Missions.AddAsync(mission);
         await missionContext.SaveChangesAsync();
+
+        return mission;
     }
 
-    public async Task UpdateAsync(MissionDbEntity mission)
+    public async Task<MissionDbEntity> UpdateAsync(MissionDbEntity mission)
     {
         missionContext.Missions.Update(mission);
         await missionContext.SaveChangesAsync();
+
+        return mission;
     }
 
     public async Task DeleteAsync(int id)
@@ -56,6 +60,4 @@ public class MissionsEfDataProvider(MissionContext missionContext) : IMissionsDa
             await missionContext.SaveChangesAsync();
         }
     }
-
-   
 }

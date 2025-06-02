@@ -10,10 +10,10 @@ public record MissionDbEntity
     public int Id { get; init; }
     public Guid MissionGuid { get; init; }
     public required string Title { get; init; }
-    public required string Description { get; init; }
+    public string? Description { get; init; }
     public DateTime CreationDate { get; init; }
     public DateTime PredictedCompletion { get; init; }
-    public DateTime ActualCompletion { get; init; }
+    public DateTime? ActualCompletion { get; init; }
     public MissionUrgency Urgency { get; init; }
     public MissionStatus Status { get; init; }
 

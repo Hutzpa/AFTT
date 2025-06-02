@@ -2,19 +2,20 @@ using AFTT.Common.MappingProfiles;
 using AFTT.Storefront.Abstractions;
 using AFTT.Storefront.Extension;
 using AFTT.Storefront.Implementations;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Identity.Web;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly, includeInternalTypes: true);
 
 builder.Services.AddScoped<IMissionsService, MissionsService>();
 
 builder.Services.AddAutoMapper(typeof(MissionsMappingProfile).Assembly);
 
 // Add services to the container.
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
 
 builder.Services.AddControllers();
 

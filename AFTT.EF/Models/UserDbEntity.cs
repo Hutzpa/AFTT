@@ -11,5 +11,5 @@ public record UserDbEntity
     public ICollection<MissionDbEntity> Missions { get; init; } = new List<MissionDbEntity>();
 
     public int SettingsId { get; init; }
-    public required UserSettings Settings { get; init; }
+    public required UserSettingsDbEntity Settings { get; init; }
 }
