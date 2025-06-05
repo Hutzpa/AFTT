@@ -6,8 +6,8 @@ public record UserSettingsDbEntity
     [Key]
     public int Id { get; init; }
 
-    public required string Language { get; init; } = "en-US"; // Default to English (United States)
-    public required string Timezone { get; init; } = "UTC"; // Default to UTC
+    public string Language { get; init; } = "en-US"; // Default to English (United States)
+    public string Timezone { get; init; } = "UTC"; // Default to UTC
 
 
     public int OwnerId { get; init; }

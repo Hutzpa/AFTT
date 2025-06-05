@@ -8,4 +8,5 @@ public enum ResponseCode
     InternalServerError = 500,
 
     MissionNotFound = 1001,
+    NotCurrentUserMission = 1002,
 }

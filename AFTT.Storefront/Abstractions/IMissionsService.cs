@@ -7,6 +7,6 @@ public interface IMissionsService
 {
     Task<MissionsGetResponse> GetActiveAsync(ActiveMissionsGetRequest request);
     Task<MissionsGetResponse> GetFutureAsync(FutureMissionsGetRequest request);
-    Task<MissionCreateResponse> CreateAsync(MissionCreateRequest request);
-    Task<MissionUpdateResponse> UpdateAsync(MissionUpdateRequest request);
+    Task<MissionCreateResponse> CreateAsync(MissionCreateRequest request, Guid userGuid);
+    Task<MissionUpdateResponse> UpdateAsync(MissionUpdateRequest request, Guid userGuid);
 }

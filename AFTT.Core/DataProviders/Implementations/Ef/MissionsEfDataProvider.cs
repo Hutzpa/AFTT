@@ -29,11 +29,14 @@ public class MissionsEfDataProvider(MissionContext missionContext) : IMissionsDa
             .ToListAsync();
 
     public async Task<MissionDbEntity?> GetByIdAsync(int id)
-    {
-        return await missionContext.Missions
+        => await missionContext.Missions
             .Include(m => m.Owner)
             .FirstOrDefaultAsync(m => m.Id == id);
-    }
+
+    public Task<MissionDbEntity?> GetByGuidAsync(Guid missionGuid)
+        => missionContext.Missions
+            .Include(m => m.Owner)
+            .FirstOrDefaultAsync(m => m.MissionGuid == missionGuid);
 
     public async Task<MissionDbEntity> CreateAsync(MissionDbEntity mission)
     {

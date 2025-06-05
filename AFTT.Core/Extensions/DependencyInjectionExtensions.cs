@@ -1,10 +1,10 @@
 ﻿using AFTT.Common.Bus;
 using AFTT.Common.DataProviders.Abstractions;
 using AFTT.Common.DataProviders.Implementations.Ef;
-using AFTT.Common.Models.Request.Bll.Missions;
 using AFTT.Core.Abstractions;
-using AFTT.Core.Consumers;
 using AFTT.Core.Consumers.Missions;
+using AFTT.Core.DataProviders.Abstractions;
+using AFTT.Core.DataProviders.Implementations.Ef;
 using AFTT.Core.Implementations;
 using MassTransit;
 
@@ -15,6 +15,7 @@ internal static class DependencyInjectionExtensions
     internal static void AddDataProviders(this WebApplicationBuilder builder)
     {
         builder.Services.AddScoped<IMissionsDataProvider, MissionsEfDataProvider>();
+        builder.Services.AddScoped<IUserDataProvider, UserDataProvider>();
     }
 
     internal static void AddServices(this WebApplicationBuilder builder)

@@ -9,11 +9,13 @@ namespace AFTT.Storefront.Controllers;
 [Route("api/[controller]")]
 public class MissionsController(IMissionsService missionsService) : ControllerBase
 {
+    Guid userGuid = Guid.Parse("C26528F4-6588-420B-BB14-05D65699BA00"); // Temporary hardcoded user GUID for testing
+
     //TODO: GET USER GUID FROM AUTHENTICATION CONTEXT INSTEAD OF QUERY PARAMETER
     [HttpGet("get-active")]
     [ProducesResponseType(typeof(MissionsGetResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetActiveAsync([FromQuery] Guid userGuid)
+    public async Task<IActionResult> GetActiveAsync()
     {
         MissionsGetResponse response = await missionsService.GetActiveAsync(new ActiveMissionsGetRequest
         {
@@ -28,11 +30,11 @@ public class MissionsController(IMissionsService missionsService) : ControllerBa
         return Ok(response);
     }
 
-    //TODO: GET USER GUID FROM AUTHENTICATION CONTEXT INSTEAD OF QUERY PARAMETER
+    //TODO: GET USER GUID FROM AUTHENTICATION CONTEXT
     [HttpGet("get-future")]
     [ProducesResponseType(typeof(MissionsGetResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> GetFutureAsync([FromQuery] Guid userGuid)
+    public async Task<IActionResult> GetFutureAsync()
     {
         MissionsGetResponse response = await missionsService.GetFutureAsync(new FutureMissionsGetRequest
         {
@@ -52,7 +54,7 @@ public class MissionsController(IMissionsService missionsService) : ControllerBa
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateAsync([FromBody] MissionCreateRequest request)
     {
-        MissionCreateResponse response = await missionsService.CreateAsync(request);
+        MissionCreateResponse response = await missionsService.CreateAsync(request, userGuid); //Add userGuid obtaining 
 
         if (response.IsSuccess == false)
         {
@@ -67,7 +69,7 @@ public class MissionsController(IMissionsService missionsService) : ControllerBa
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> UpdateAsync([FromBody] MissionUpdateRequest request)
     {
-        MissionUpdateResponse response = await missionsService.UpdateAsync(request);
+        MissionUpdateResponse response = await missionsService.UpdateAsync(request, userGuid);
 
         if (response.IsSuccess == false)
         {

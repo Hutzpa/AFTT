@@ -36,9 +36,16 @@ internal class MissionsService(
         return response.Message;
     }
 
-    public async Task<MissionCreateResponse> CreateAsync(MissionCreateRequest request)
+    public async Task<MissionCreateResponse> CreateAsync(MissionCreateRequest request, Guid userGuid)
     {
-        MissionCreateBllRequest bllRequest = mapper.Map<MissionCreateBllRequest>(request);
+        //add validation
+        MissionCreateBllRequest bllRequest = mapper.Map<MissionCreateBllRequest>(request, opts =>
+        {
+            opts.AfterMap((src, dest) =>
+            {
+                dest.UserGuid = userGuid; 
+            });
+        });
 
         Response<MissionCreateResponse> response = await createMissionRequestClient
             .GetResponse<MissionCreateResponse>(request);
@@ -46,9 +53,16 @@ internal class MissionsService(
         return response.Message;
     }
 
-    public async Task<MissionUpdateResponse> UpdateAsync(MissionUpdateRequest request)
+    public async Task<MissionUpdateResponse> UpdateAsync(MissionUpdateRequest request, Guid userGuid)
     {
-        MissionUpdateBllRequest bllRequest = mapper.Map<MissionUpdateBllRequest>(request);
+        // add validation 
+        MissionUpdateBllRequest bllRequest = mapper.Map<MissionUpdateBllRequest>(request, opts =>
+        {
+            opts.AfterMap((src, dest) =>
+            {
+                dest.UserGuid = userGuid;
+            });
+        });
 
         Response<MissionUpdateResponse> response = await updateMissionRequestClient
             .GetResponse<MissionUpdateResponse>(request);

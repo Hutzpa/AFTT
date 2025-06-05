@@ -9,13 +9,13 @@ public record MissionDbEntity
     [Key]
     public int Id { get; init; }
     public Guid MissionGuid { get; init; }
-    public required string Title { get; init; }
-    public string? Description { get; init; }
+    public required string Title { get; set; }
+    public string? Description { get; set; }
     public DateTime CreationDate { get; init; }
-    public DateTime PredictedCompletion { get; init; }
-    public DateTime? ActualCompletion { get; init; }
-    public MissionUrgency Urgency { get; init; }
-    public MissionStatus Status { get; init; }
+    public DateTime PredictedCompletion { get; set; }
+    public DateTime? ActualCompletion { get; set; }
+    public MissionUrgency Urgency { get; set; }
+    public MissionStatus Status { get; set; }
 
     public int OwnerId { get; init; }
     public required UserDbEntity Owner { get; init; }

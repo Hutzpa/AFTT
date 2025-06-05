@@ -3,7 +3,7 @@ using AFTT.Common.Models.Response.Missions;
 using AFTT.Core.Abstractions;
 using MassTransit;
 
-namespace AFTT.Core.Consumers;
+namespace AFTT.Core.Consumers.Missions;
 
 internal class UpdateMissionConsumer(IMissionsService missionsService) : IConsumer<MissionUpdateBllRequest>
 {
