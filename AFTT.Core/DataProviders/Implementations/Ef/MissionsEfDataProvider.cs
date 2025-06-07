@@ -8,26 +8,35 @@ namespace AFTT.Common.DataProviders.Implementations.Ef;
 
 public class MissionsEfDataProvider(MissionContext missionContext) : IMissionsDataProvider
 {
-    public async Task<IEnumerable<MissionDbEntity>> GetActiveUserMissionsAsync(Guid userGuid)
+    public async Task<IEnumerable<MissionDbEntity>> GetAsync(Guid userGuid, string? title, MissionUrgency? urgency, MissionStatus? status, int pageSize, int pageNumber)
     {
-        IEnumerable<MissionDbEntity> missionDbEntities = await GetUserMissionsByStatusAsync(userGuid, MissionStatus.InProgress);
-
-        return missionDbEntities;
-    }
-
-    public async Task<IEnumerable<MissionDbEntity>> GetFutureUserMissionsAsync(Guid userGuid)
-    {
-        IEnumerable<MissionDbEntity> missionDbEntities = await GetUserMissionsByStatusAsync(userGuid, MissionStatus.Planned);
-
-        return missionDbEntities;
-    }
-
-    private async Task<IEnumerable<MissionDbEntity>> GetUserMissionsByStatusAsync(Guid userGuid, MissionStatus status)
-        => await missionContext.Missions
+        IQueryable<MissionDbEntity> missions = missionContext.Missions
+            .AsNoTracking()
             .Include(m => m.Owner)
-            .Where(m => m.Owner.UserGuid == userGuid && m.Status == status)
-            .ToListAsync();
+            .Where(m => m.Owner.UserGuid == userGuid);
 
+        //will be moved to extension methods later 
+        if(string.IsNullOrEmpty(title) is false)
+        {
+            missions = missions.Where(m => m.Title.ToLower().Contains(title.ToLower()));
+        }
+
+        if(urgency is not null)
+        {
+            missions = missions.Where(m => m.Urgency == urgency);
+        }
+
+        if(status is not null)
+        {
+            missions = missions.Where(m => m.Status == status);
+        }
+
+        IQueryable<MissionDbEntity> paginatedMissions = missions
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize);
+
+        return await paginatedMissions.ToListAsync();
+    }
     public async Task<MissionDbEntity?> GetByIdAsync(int id)
         => await missionContext.Missions
             .Include(m => m.Owner)

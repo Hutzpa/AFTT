@@ -17,21 +17,10 @@ internal class MissionsService(IMapper mapper,
 {
     //TODO: PLAN AND IMPLEMENT RESTRICTIONS AND VALIDATION RULES
 
-    public async Task<MissionsGetResponse> GetActiveAsync(ActiveMissionsGetBllRequest request)
+    public async Task<MissionsGetResponse> GetAsync(MissionsGetBllRequest request)
     {
-        IEnumerable<MissionDbEntity> missions = await missionsDataProvider.GetActiveUserMissionsAsync(request.UserGuid);
-
-        IEnumerable<MissionDto> missionsResult = mapper.Map<IEnumerable<MissionDto>>(missions);
-
-        return new MissionsGetResponse
-        {
-            Missions = missionsResult
-        };
-    }
-
-    public async Task<MissionsGetResponse> GetFutureAsync(FutureMissionsGetBllRequest request)
-    {
-        IEnumerable<MissionDbEntity> missions = await missionsDataProvider.GetFutureUserMissionsAsync(request.UserGuid);
+        IEnumerable<MissionDbEntity> missions = await missionsDataProvider
+            .GetAsync(request.UserGuid,request.Title, request.Urgency, request.Status, request.PageSize, request.PageNumber);
 
         IEnumerable<MissionDto> missionsResult = mapper.Map<IEnumerable<MissionDto>>(missions);
 
@@ -43,9 +32,7 @@ internal class MissionsService(IMapper mapper,
 
     public async Task<MissionCreateResponse> CreateAsync(MissionCreateBllRequest request)
     {
-        UserDbEntity user = await userDataProvider.CreateUserAsync("DefaultUser");
-
-        //UserDbEntity userDbEntity = await userDataProvider.GetUserByGuidAsync(request.UserGuid);
+        UserDbEntity user = await userDataProvider.GetUserByGuidAsync(request.UserGuid);
 
         MissionDbEntity mission = new()
         {

@@ -10,8 +10,6 @@ public class MissionsMappingProfile : Profile
 {
     public MissionsMappingProfile()
     {
-        CreateMap<ActiveMissionsGetRequest, ActiveMissionsGetBllRequest>();
-        CreateMap<FutureMissionsGetRequest, FutureMissionsGetBllRequest>();
         CreateMap<MissionCreateRequest, MissionCreateBllRequest>();
         CreateMap<MissionUpdateRequest, MissionUpdateBllRequest>();
 

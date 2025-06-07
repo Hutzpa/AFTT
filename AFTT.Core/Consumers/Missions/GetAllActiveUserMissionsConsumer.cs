@@ -5,11 +5,11 @@ using MassTransit;
 
 namespace AFTT.Core.Consumers.Missions;
 
-internal class GetAllActiveUserMissionsConsumer(IMissionsService missionsService) : IConsumer<ActiveMissionsGetBllRequest>
+internal class GetAllActiveUserMissionsConsumer(IMissionsService missionsService) : IConsumer<MissionsGetBllRequest>
 {
-    public async Task Consume(ConsumeContext<ActiveMissionsGetBllRequest> context)
+    public async Task Consume(ConsumeContext<MissionsGetBllRequest> context)
     {
-        MissionsGetResponse response = await missionsService.GetActiveAsync(context.Message);
+        MissionsGetResponse response = await missionsService.GetAsync(context.Message);
 
         await context.RespondAsync(response);
     }

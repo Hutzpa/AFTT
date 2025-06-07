@@ -27,8 +27,7 @@ internal static class DependencyInjectionExtensions
     {
         builder.Services.AddMassTransit(bus =>
         {
-            bus.AddConsumer<GetAllActiveUserMissionsConsumer>().Endpoint(e => e.Name = MissionsQueue.GetActiveMissions);
-            bus.AddConsumer<GetAllFutureUserMissionsConsumer>().Endpoint(e => e.Name = MissionsQueue.GetFutureMissions);
+            bus.AddConsumer<GetAllActiveUserMissionsConsumer>().Endpoint(e => e.Name = MissionsQueue.GetMissions);
             bus.AddConsumer<UpdateMissionConsumer>().Endpoint(e => e.Name = MissionsQueue.UpdateMission);
             bus.AddConsumer<CreateMissionConsumer>().Endpoint(e => e.Name = MissionsQueue.CreateMission);
 

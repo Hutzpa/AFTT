@@ -9,29 +9,16 @@ namespace AFTT.Storefront.Implementations;
 
 internal class MissionsService(
     IMapper mapper,
-    IRequestClient<ActiveMissionsGetBllRequest> getActiveUserMissionsRequestClient,
-    IRequestClient<FutureMissionsGetBllRequest> getFutureUserMissionsRequestClient,
+    IRequestClient<MissionsGetBllRequest> getUserMissionsRequestClient,
     IRequestClient<MissionCreateBllRequest> createMissionRequestClient,
     IRequestClient<MissionUpdateBllRequest> updateMissionRequestClient
     ) : IMissionsService
 {
-    public async Task<MissionsGetResponse> GetActiveAsync(ActiveMissionsGetRequest request)
+    public async Task<MissionsGetResponse> GetAsync(MissionsGetBllRequest request)
     {
-        ActiveMissionsGetBllRequest bllRequest = mapper.Map<ActiveMissionsGetBllRequest>(request);
-
-        Response<MissionsGetResponse> response = await getActiveUserMissionsRequestClient
-            .GetResponse<MissionsGetResponse>(bllRequest);
-
-        return response.Message;
-    }
-
-    public async Task<MissionsGetResponse> GetFutureAsync(FutureMissionsGetRequest request)
-    {
-        // Similar mapping and request logic as GetActiveAsync
-        FutureMissionsGetBllRequest bllRequest = mapper.Map<FutureMissionsGetBllRequest>(request);
-
-        Response<MissionsGetResponse> response = await getFutureUserMissionsRequestClient
-            .GetResponse<MissionsGetResponse>(bllRequest);
+        // add validation 
+        Response<MissionsGetResponse> response = await getUserMissionsRequestClient
+            .GetResponse<MissionsGetResponse>(request);
 
         return response.Message;
     }
